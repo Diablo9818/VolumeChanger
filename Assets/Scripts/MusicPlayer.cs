@@ -20,19 +20,19 @@ public class MusicPlayer : MonoBehaviour
 
     private void OnEnable()
     {
-        _button.onClick.AddListener(PlayMusic);
+        _button.onClick.AddListener(Play);
     }
 
     private void OnDisable()
     {
-        _button.onClick.RemoveListener(PlayMusic);
+        _button.onClick.RemoveListener(Play);
     }
 
-    private void PlayMusic()
+    private void Play()
     {
         if (_isPlaying)
         {
-            StopMusic();
+            Stop();
         }
         else
         {
@@ -41,7 +41,7 @@ public class MusicPlayer : MonoBehaviour
         }
     }
 
-    private void StopMusic()
+    private void Stop()
     {
         _audioSource.Stop();
         _isPlaying = false;
