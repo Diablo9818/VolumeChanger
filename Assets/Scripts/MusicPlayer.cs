@@ -1,20 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
-[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(Button)), RequireComponent(typeof(AudioSource))]
 public class MusicPlayer : MonoBehaviour
 {
+    [SerializeField] private AudioMixerGroup _audioMixerGroup;
+
+
     private Button _button;
-    private AudioSource _audioSource;
+    private int _maxVolume = 0;
+    private int _minVolume = -80;
 
     private bool _isPlaying = true;
 
     private void Awake()
     {
-        _audioSource = GetComponent<AudioSource>();
         _button = GetComponent<Button>();
     }
 
@@ -36,14 +39,14 @@ public class MusicPlayer : MonoBehaviour
         }
         else
         {
-            _audioSource.Play();
+            _audioMixerGroup.audioMixer.SetFloat("MyExposedParam", _maxVolume);
             _isPlaying = true;
         }
     }
 
     private void Stop()
     {
-        _audioSource.Stop();
+        _audioMixerGroup.audioMixer.SetFloat("MyExposedParam", _minVolume);
         _isPlaying = false;
     }
 }
